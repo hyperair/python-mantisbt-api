@@ -65,8 +65,6 @@ class Project(object):
         issues = conn.service.mc_project_get_issues(username, password,
                                                     self.project_id,
                                                     page, window_size)
-        import ipdb
-        ipdb.set_trace()
         issue_list = []
         for issue in issues:
             issue_list.append(Issue(issue))
