@@ -84,7 +84,10 @@ class Issue(object):
         self.reproducibility = data.reproducibility
         self.date_submitted = data.date_submitted
         self.sponsorship_total = data.sponsorship_total
-        self.handler = MantisUser(data.handler)
+        try:
+            self.handler = MantisUser(data.handler)
+        except AttributeError:
+            self.handler = None
         self.projection = MantisObj(data.projection)
         self.eta = MantisObj(data.eta)
         self.resolution = MantisObj(data.resolution)
