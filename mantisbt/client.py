@@ -68,7 +68,6 @@ class Project(object):
         return map(Issue, issues)
 
 
-
 class Issue(object):
     def __init__(self, data):
         self.issue_id = data.id
@@ -93,4 +92,3 @@ class Issue(object):
         self.description = data.description
         self.attachments = data.attachments
         self.notes = [MantisNote(note_data) for note_data in getattr(data, 'notes', [])]
-
