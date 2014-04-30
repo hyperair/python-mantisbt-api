@@ -65,10 +65,7 @@ class Project(object):
         issues = conn.service.mc_project_get_issues(username, password,
                                                     self.project_id,
                                                     page, window_size)
-        issue_list = []
-        for issue in issues:
-            issue_list.append(Issue(issue))
-        return issue_list
+        return map(Issue, issues)
 
 
 
