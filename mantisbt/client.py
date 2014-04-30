@@ -32,7 +32,7 @@ class MantisUser(object):
     def __init__(self, user):
         self.user_id = user.id
         self.username = user.name
-        self.real_name = user.real_name
+        self.real_name = getattr(user, 'real_name', None)
         self.email = user.email
 
 
