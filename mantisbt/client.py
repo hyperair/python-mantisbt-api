@@ -31,9 +31,9 @@ class MantisObj(object):
 class MantisUser(object):
     def __init__(self, user):
         self.user_id = user.id
-        self.username = getattr(user, user.name, None)
+        self.username = getattr(user, 'name', None)
         self.real_name = getattr(user, 'real_name', None)
-        self.email = getattr(user.email, None)
+        self.email = getattr(user, 'email', None)
 
 
 class MantisNote(object):
