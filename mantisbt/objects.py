@@ -22,6 +22,7 @@ class MantisObject(object):
         if cls is MantisObject:
             if isinstance(obj, SudsObject):
                 cls = registry[obj.__class__.__name__]
+                return object.__new__(cls, obj, client, *args, **kwargs)
 
             elif isinstance(obj, list):
                 return [cls(item, client) for item in obj]
@@ -30,7 +31,10 @@ class MantisObject(object):
                 return dict((k, cls(item, client))
                             for k, item in obj.iteritems())
 
-        return object.__new__(cls, obj, client, *args, **kwargs)
+            else:
+                # Not a SudsObject nor a recognizable container. Bail!
+                return obj
+
 
     def __init__(self, obj, client):
         self._obj = obj
@@ -46,6 +50,4 @@ registry = TypeRegistry(MantisObject)
 @registry.register_type("ProjectData")
 class Project(MantisObject):
     def get_issues(self, page=1, window_size=100):
-        return [MantisObject(issue, self._client)
-                for issue in self._client.project_get_issues(self, page,
-                                                             window_size)]
+        return self._client.project_get_issues(self, page, window_size)
